@@ -4,7 +4,7 @@ const path = require("path");
 const postsDir = path.join(__dirname, "../content/products");
 const outputFile = path.join(__dirname, "../posts.json");
 
-// ✅ Your base path (only defined once here)
+// ✅ Correct base path for GitHub Pages
 const publicFolder = "/localpulse-site/images/uploads";
 
 let posts = [];
@@ -19,9 +19,10 @@ fs.readdirSync(postsDir).forEach(file => {
 
     let imagePath = imageMatch ? imageMatch[1].trim() : "";
 
-    // ✅ Automatically add your base path
-    if (imagePath && !imagePath.startsWith("http")) {
-      imagePath = `${publicFolder}/${imagePath.replace(/^\/+/, "")}`;
+    // ✅ ALWAYS clean and rebuild the image path
+    if (imagePath) {
+      const fileName = path.basename(imagePath); // <-- THIS is the key fix
+      imagePath = `${publicFolder}/${fileName}`;
     }
 
     posts.push({
@@ -32,6 +33,10 @@ fs.readdirSync(postsDir).forEach(file => {
   }
 });
 
+// ✅ make sure file actually writes
+fs.writeFileSync(outputFile, JSON.stringify(posts, null, 2));
+
+console.log("posts.json generated!");
 fs.writeFileSync(outputFile, JSON.stringify(posts, null, 2));
 
 console.log("posts.json generated!");
