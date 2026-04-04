@@ -4,6 +4,9 @@ const path = require("path");
 const postsDir = path.join(__dirname, "../content/products");
 const outputFile = path.join(__dirname, "../posts.json");
 
+// ✅ Your base public folder
+const publicFolder = "/localpulse-site/images/uploads";
+
 let posts = [];
 
 fs.readdirSync(postsDir).forEach(file => {
@@ -15,9 +18,17 @@ fs.readdirSync(postsDir).forEach(file => {
     const imageMatch = content.match(/image:\s*(.*)/);
     const descMatch = content.match(/description:\s*(.*)/);
 
+    // ✅ Clean image path + auto prepend folder
+    let imagePath = imageMatch ? imageMatch[1].trim() : "";
+
+    if (imagePath) {
+      // Prevent double slashes and handle clean join
+      imagePath = `${publicFolder}/${imagePath.replace(/^\/+/, "")}`;
+    }
+
     posts.push({
       title: titleMatch ? titleMatch[1] : "No title",
-      image: imageMatch ? imageMatch[1] : "",
+      image: imagePath,
       description: descMatch ? descMatch[1] : ""
     });
   }
