@@ -1,5 +1,5 @@
 ---
 title: agian
-image: /images/uploads/IMG_0017.jpeg
+image: /localpulse-site/images/uploads/IMG_0017.jpeg
 description: mhm
 ---
