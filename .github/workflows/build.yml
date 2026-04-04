@@ -1,0 +1,29 @@
+name: Build Posts
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Generate posts.json
+        run: node scripts/generate-posts.js
+
+      - name: Commit updated posts.json
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git add posts.json
+          git commit -m "Auto update posts.json" || exit 0
+          git push
