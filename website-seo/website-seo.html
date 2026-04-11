@@ -327,22 +327,17 @@ resize();
 
 let time = 0;
 
-// smoother easing (back and forth motion)
-function easeInOut(t) {
-  return 0.5 * (1 - Math.cos(Math.PI * t));
-}
-
 function drawWave(yOffset, amplitude, frequency, speed, phase, opacity) {
   ctx.beginPath();
 
-  // soft gradient fill (this is what fixes harsh edges)
-  const gradient = ctx.createLinearGradient(0, yOffset - 100, 0, height);
+  // soft gradient edges
+  const gradient = ctx.createLinearGradient(0, yOffset - 120, 0, height);
   gradient.addColorStop(0, `rgba(178,102,255,${opacity})`);
   gradient.addColorStop(1, "rgba(178,102,255,0)");
 
   for (let x = 0; x <= width; x++) {
-    // slow oscillating horizontal motion (left ↔ right)
-    let shift = Math.sin(time * speed + phase) * 80;
+    // smoother + more noticeable motion
+    let shift = Math.sin(time * speed + phase) * 100;
 
     let y =
       Math.sin((x + shift) * frequency) * amplitude +
@@ -362,15 +357,15 @@ function drawWave(yOffset, amplitude, frequency, speed, phase, opacity) {
 }
 
 function animate() {
-  time += 0.002; // 🔥 slower overall motion
+  time += 0.006; // 🔥 sweet spot speed
 
   ctx.fillStyle = "#0b0b0b";
   ctx.fillRect(0, 0, width, height);
 
-  // Each wave has different speed + phase (staggered timing)
-  drawWave(height * 0.6, 50, 0.008, 0.4, 0, 0.18);
-  drawWave(height * 0.65, 70, 0.006, 0.25, 2, 0.14);
-  drawWave(height * 0.7, 90, 0.005, 0.15, 4, 0.10);
+  // staggered wave timing (feels natural)
+  drawWave(height * 0.6, 55, 0.008, 0.8, 0, 0.18);
+  drawWave(height * 0.65, 75, 0.006, 0.5, 2, 0.14);
+  drawWave(height * 0.7, 95, 0.005, 0.3, 4, 0.10);
 
   requestAnimationFrame(animate);
 }
