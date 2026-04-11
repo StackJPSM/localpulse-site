@@ -117,7 +117,36 @@
       position: relative;
       z-index: 2;
     }
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Space between image and text */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Optional: rounds the corners */
+}
+
+.about-content {
+  flex: 1;
+}
+
+/* Responsive adjustment for mobile phones */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -292,7 +321,6 @@
   <a href="#services">Services</a>
   <a href="#products">Products</a>
   <a href="#testimonials">Testimonials</a>
-  <a href="website-seo.html">Website & SEO</a>
 </div>
 
 <div class="network-bg">
@@ -318,8 +346,15 @@
 
 <!-- YOUR ORIGINAL ABOUT SECTION (UNCHANGED) -->
 <section id="about" class="about">
-  <h2>About Us</h2>
-  <p>Evoora Digital blends custom web architecture with aggressive local marketing. We build your digital foundation and then turn the volume up until the right people hear you. Evoora was created to be the partner we wish we had when starting out. We build high-end web services and local campaigns designed specifically to give up-and-coming businesses a fair shot. With affordable, hand-crafted strategies, we’re here to help you start fresh and finish first.</p>
+  <div class="about-container">
+    <div class="about-image">
+      <img src="images/about-image.jpg" alt="About Evoora Digital">
+    </div>
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>Evoora Digital blends custom web architecture with aggressive local marketing. We build your digital foundation and then turn the volume up until the right people hear you. Evoora was created to be the partner we wish we had when starting out. We build high-end web services and local campaigns designed specifically to give up-and-coming businesses a fair shot. With affordable, hand-crafted strategies, we’re here to help you start fresh and finish first.</p>
+    </div>
+  </div>
 </section>
 
 <!-- YOUR ORIGINAL SERVICES SECTION (UNCHANGED - IMPORTANT) -->
