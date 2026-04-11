@@ -327,37 +327,50 @@ resize();
 
 let time = 0;
 
-function drawWave(yOffset, amplitude, frequency, speed, color) {
+// smoother easing (back and forth motion)
+function easeInOut(t) {
+  return 0.5 * (1 - Math.cos(Math.PI * t));
+}
+
+function drawWave(yOffset, amplitude, frequency, speed, phase, opacity) {
   ctx.beginPath();
-  ctx.moveTo(0, height);
+
+  // soft gradient fill (this is what fixes harsh edges)
+  const gradient = ctx.createLinearGradient(0, yOffset - 100, 0, height);
+  gradient.addColorStop(0, `rgba(178,102,255,${opacity})`);
+  gradient.addColorStop(1, "rgba(178,102,255,0)");
 
   for (let x = 0; x <= width; x++) {
+    // slow oscillating horizontal motion (left ↔ right)
+    let shift = Math.sin(time * speed + phase) * 80;
+
     let y =
-      Math.sin(x * frequency + time * speed) * amplitude +
-      Math.sin(x * frequency * 0.5 + time * speed * 0.5) * amplitude * 0.5 +
+      Math.sin((x + shift) * frequency) * amplitude +
+      Math.sin((x + shift) * frequency * 0.5) * amplitude * 0.5 +
       yOffset;
 
-    ctx.lineTo(x, y);
+    if (x === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
   }
 
   ctx.lineTo(width, height);
+  ctx.lineTo(0, height);
   ctx.closePath();
 
-  ctx.fillStyle = color;
+  ctx.fillStyle = gradient;
   ctx.fill();
 }
 
 function animate() {
-  time += 0.02;
+  time += 0.002; // 🔥 slower overall motion
 
-  // Clear
   ctx.fillStyle = "#0b0b0b";
   ctx.fillRect(0, 0, width, height);
 
-  // Layered waves (depth effect)
-  drawWave(height * 0.6, 40, 0.01, 1, "rgba(178,102,255,0.15)");
-  drawWave(height * 0.65, 60, 0.008, 0.8, "rgba(178,102,255,0.12)");
-  drawWave(height * 0.7, 80, 0.006, 0.6, "rgba(178,102,255,0.08)");
+  // Each wave has different speed + phase (staggered timing)
+  drawWave(height * 0.6, 50, 0.008, 0.4, 0, 0.18);
+  drawWave(height * 0.65, 70, 0.006, 0.25, 2, 0.14);
+  drawWave(height * 0.7, 90, 0.005, 0.15, 4, 0.10);
 
   requestAnimationFrame(animate);
 }
