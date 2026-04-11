@@ -28,6 +28,15 @@ permalink: /website-seo
     overflow-x: hidden;
   }
 
+  #bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+  
   /* NAVBAR - Retaining Logo and Links */
   .navbar {
     position: fixed;
@@ -181,7 +190,9 @@ permalink: /website-seo
 </head>
 
 <body>
-
+  
+<canvas id="bgCanvas"></canvas>
+  
 <div class="navbar">
   <a href="index.html">Home</a>
   <a href="website-seo.html">Website & SEO</a>
@@ -300,7 +311,44 @@ permalink: /website-seo
   </div>
 
 </footer>
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
 
+let width, height;
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+let time = 0;
+
+function draw() {
+  time += 0.003;
+
+  // Create gradient that moves
+  const gradient = ctx.createLinearGradient(
+    width * Math.sin(time),
+    height * Math.cos(time),
+    width,
+    height
+  );
+
+  gradient.addColorStop(0, "#0b0b0b");
+  gradient.addColorStop(0.5, "#1a0033");
+  gradient.addColorStop(1, "#000");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
 
 </body>
 </html>
