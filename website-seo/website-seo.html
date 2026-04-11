@@ -311,6 +311,7 @@ permalink: /website-seo
   </div>
 
 </footer>
+  
 <script>
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
@@ -326,28 +327,42 @@ resize();
 
 let time = 0;
 
-function draw() {
-  time += 0.003;
+function drawWave(yOffset, amplitude, frequency, speed, color) {
+  ctx.beginPath();
+  ctx.moveTo(0, height);
 
-  // Create gradient that moves
-  const gradient = ctx.createLinearGradient(
-    width * Math.sin(time),
-    height * Math.cos(time),
-    width,
-    height
-  );
+  for (let x = 0; x <= width; x++) {
+    let y =
+      Math.sin(x * frequency + time * speed) * amplitude +
+      Math.sin(x * frequency * 0.5 + time * speed * 0.5) * amplitude * 0.5 +
+      yOffset;
 
-  gradient.addColorStop(0, "#0b0b0b");
-  gradient.addColorStop(0.5, "#1a0033");
-  gradient.addColorStop(1, "#000");
+    ctx.lineTo(x, y);
+  }
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
+  ctx.lineTo(width, height);
+  ctx.closePath();
 
-  requestAnimationFrame(draw);
+  ctx.fillStyle = color;
+  ctx.fill();
 }
 
-draw();
+function animate() {
+  time += 0.02;
+
+  // Clear
+  ctx.fillStyle = "#0b0b0b";
+  ctx.fillRect(0, 0, width, height);
+
+  // Layered waves (depth effect)
+  drawWave(height * 0.6, 40, 0.01, 1, "rgba(178,102,255,0.15)");
+  drawWave(height * 0.65, 60, 0.008, 0.8, "rgba(178,102,255,0.12)");
+  drawWave(height * 0.7, 80, 0.006, 0.6, "rgba(178,102,255,0.08)");
+
+  requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
