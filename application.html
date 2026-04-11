@@ -1,17 +1,290 @@
+---
+permalink: /application
+---
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="apple-touch-icon" href="images/uploads/logo.png">
-  <link rel="icon" type="images/uploads/logo.png" href="images/uploads/logo.png">
-<title>Application</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="apple-touch-icon" href="images/uploads/logo.png">
+<link rel="icon" type="image/png" href="images/uploads/logo.png">
+
+<title>Application | Evoora Digital</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
 <style>
-body { background:#0b0b0b; color:white; font-family:Roboto; text-align:center; padding:100px; }
-a { color:#b266ff; }
+  :root {
+    --primary-purple: #b266ff;
+    --light-purple: #d6b3ff;
+    --bg-dark: #0b0b0b;
+    --card-bg: #111;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-dark);
+    color: white;
+    overflow-x: hidden;
+  }
+
+  /* CANVAS (same system) */
+  #bgCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 25px;
+    border-radius: 50px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(178,102,255,0.2);
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    z-index: 1000;
+  }
+
+  .navbar a {
+    color: var(--light-purple);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .navbar a:hover {
+    color: var(--primary-purple);
+  }
+
+  /* CENTER FORM PAGE */
+  .page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 140px 20px 80px;
+  }
+
+  .form-box {
+    width: 100%;
+    max-width: 500px;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(178,102,255,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .form-box h1 {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .form-box p {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 30px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: #050505;
+    border: 1px solid #222;
+    color: white;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  input:focus, textarea:focus {
+    border-color: var(--primary-purple);
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-purple);
+    border: none;
+    border-radius: 8px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: var(--light-purple);
+  }
+
+  /* FOOTER (EXACT SAME STYLE AS SEO PAGE) */
+  footer {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(178,102,255,0.2);
+    padding: 40px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .footer-col h4 {
+    color: #b266ff;
+  }
+
+  .footer-col a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 6px 0;
+  }
+
+  .footer-col a:hover {
+    color: #b266ff;
+  }
+
+  .small-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+  }
 </style>
 </head>
+
 <body>
-<h1>Application Page</h1>
-<p>Coming soon...</p>
-<a href="index.html">Back Home</a>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="website-seo.html">Website & SEO</a>
+  <a href="application.html">Application</a>
+</div>
+
+<div class="page-container">
+  <div class="form-box">
+    <h1>Application</h1>
+    <p>Tell us about your project and we’ll get back to you.</p>
+
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="a783e026-64ef-4971-b1bd-d93c8577505b">
+
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER (same as SEO page) -->
+<footer>
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:info@evoora.net">info@evoora.net</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="index.html">Home</a>
+      <a href="website-seo.html">Website & SEO</a>
+      <a href="application.html">Application</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="#">Snapchat</a>
+    </div>
+
+  </div>
+
+  <div class="small-footer">
+    © 2026 Evoora Digital
+  </div>
+</footer>
+
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+let width, height;
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+let time = 0;
+
+function drawWave(yOffset, amplitude, frequency, speed, phase, opacity) {
+  ctx.beginPath();
+
+  const gradient = ctx.createLinearGradient(0, yOffset - 120, 0, height);
+  gradient.addColorStop(0, `rgba(178,102,255,${opacity})`);
+  gradient.addColorStop(1, "rgba(178,102,255,0)");
+
+  for (let x = 0; x <= width; x++) {
+    let shift = Math.sin(time * speed + phase) * 100;
+
+    let y =
+      Math.sin((x + shift) * frequency) * amplitude +
+      Math.sin((x + shift) * frequency * 0.5) * amplitude * 0.5 +
+      yOffset;
+
+    if (x === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+
+  ctx.lineTo(width, height);
+  ctx.lineTo(0, height);
+  ctx.closePath();
+
+  ctx.fillStyle = gradient;
+  ctx.fill();
+}
+
+function animate() {
+  time += 0.006;
+
+  ctx.fillStyle = "#0b0b0b";
+  ctx.fillRect(0, 0, width, height);
+
+  drawWave(height * 0.6, 55, 0.008, 0.8, 0, 0.18);
+  drawWave(height * 0.65, 75, 0.006, 0.5, 2, 0.14);
+  drawWave(height * 0.7, 95, 0.005, 0.3, 4, 0.10);
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
 </body>
 </html>
