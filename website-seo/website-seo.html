@@ -134,13 +134,43 @@ permalink: /website-seo
   }
   .submit-btn:hover { background: var(--light-purple); transform: translateY(-2px); }
 
-  /* ORIGINAL FOOTER */
-  footer {
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-    border-top: 1px solid #1a1a1a;
-  }
+   footer {
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(178,102,255,0.2);
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .footer-col h4 {
+      color: #b266ff;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin: 6px 0;
+    }
+
+    .footer-col a:hover {
+      color: #b266ff;
+    }
+
+    .small-footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
 
   @media (max-width: 768px) {
     .main-container { flex-direction: column; padding-top: 120px; }
