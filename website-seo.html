@@ -1,32 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Website & SEO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website & SEO | LocalPulse Digital</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
 <style>
 body {
-  background:#0b0b0b;
-  color:white;
-  font-family:Roboto;
-  text-align:center;
-  padding:100px;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #0b0b0b;
+  color: white;
 }
-a { color:#b266ff; }
+
+/* NAVBAR (same style as main site) */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 25px;
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(178,102,255,0.2);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+}
+
+.navbar a {
+  color: #d6b3ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: #b266ff;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 140px 20px 60px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #b266ff;
+}
+
+.hero p {
+  color: #aaa;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+/* PRICE CARD */
+.price-box {
+  background: #111;
+  border: 1px solid rgba(178,102,255,0.2);
+  border-radius: 20px;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(178,102,255,0.1);
+}
+
+.price {
+  font-size: 3rem;
+  color: #b266ff;
+  margin: 10px 0;
+}
+
+.sub {
+  color: #aaa;
+}
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.feature {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid rgba(178,102,255,0.15);
+}
+
+.feature h3 {
+  color: #b266ff;
+}
+
+/* CTA */
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #b266ff;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* FOOTER STYLE (minimal) */
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
 </style>
 </head>
 
 <body>
-<h1>Website & SEO Services</h1>
 
-<p>
-We build high converting websites and optimize them for Google ranking.
-</p>
+<!-- NAVBAR -->
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="website-seo.html">Website & SEO</a>
+  <a href="application.html">Apply</a>
+</div>
 
-<h3>Website Service</h3>
-<p>Landing pages, funnels, business sites.</p>
+<!-- HERO -->
+<section class="hero">
+  <h1>Website & SEO Services</h1>
+  <p>
+    We build high-converting websites and optimize them for Google ranking so your business gets found, clicked, and chosen.
+  </p>
+</section>
 
-<h3>SEO Service</h3>
-<p>Keyword ranking, backlinks, optimization.</p>
+<!-- PRICE -->
+<div class="price-box">
+  <h2>Base Package</h2>
+  <div class="price">$500</div>
+  <p class="sub">One-time setup fee (excluding additional services)</p>
 
-<a href="index.html">Back Home</a>
+  <a href="application.html" class="cta">Start Your Project</a>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+
+  <div class="feature">
+    <h3>Website Design</h3>
+    <p>Modern, mobile-first business website built for conversions.</p>
+  </div>
+
+  <div class="feature">
+    <h3>SEO Setup</h3>
+    <p>Google-ready structure, metadata, and indexing optimization.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Speed Optimization</h3>
+    <p>Fast load times for better ranking and user experience.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Basic Branding Setup</h3>
+    <p>Clean layout styling aligned with your business identity.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Mobile Optimization</h3>
+    <p>Fully responsive design across all devices.</p>
+  </div>
+
+  <div class="feature">
+    <h3>Search Visibility</h3>
+    <p>Configured for Google indexing and discoverability.</p>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 LocalPulse Digital — Website & SEO Services
+</footer>
+
 </body>
 </html>
