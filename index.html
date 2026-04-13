@@ -359,6 +359,16 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
 
+    .section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: coral;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+    
     .audio-btn {
       position: absolute;
       bottom: 15px;
@@ -479,6 +489,7 @@
 
   <div class="testimonial-grid">
     <div class="testimonial-card">
+        <h3 class="testimonial-title">Jerry R. - CraftedbyLauren</h3>
       <p>He was great to work with and got my brand made so quick. Can not wait to do future business. Receiving more calls now than ever.</p>
       <button class="audio-btn" onclick="document.getElementById('audio1').play()">▶</button>
       <audio id="audio1">
