@@ -369,19 +369,20 @@
   border-radius: 2px;
 }
     
-    .audio-btn {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: #b266ff;
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      cursor: pointer;
-      font-size: 16px;
-      color: black;
-    }
+  .audio-btn {
+  cursor: pointer;
+  background: coral;
+  border: none;
+  color: black;
+  padding: 10px 14px;
+  border-radius: 50%;
+  font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.audio-btn:hover {
+  transform: scale(1.1);
+}
 
     @media (max-width: 768px) {
       .testimonial-grid {
@@ -491,11 +492,14 @@
     <div class="testimonial-card">
         <h3 class="testimonial-title">Jerry R. - CraftedbyLauren</h3>
       <p>He was great to work with and got my brand made so quick. Can not wait to do future business. Receiving more calls now than ever.</p>
-      <button class="audio-btn" onclick="document.getElementById('audio1').play()">▶</button>
-      <audio id="audio1">
-        <source src="Testimonial/Audiofile/2026-04-12 18-42-27.mp3">
-      </audio>
-    </div>
+       <button class="audio-btn" onclick="toggleAudio(this)">
+    ▶
+  </button>
+
+  <audio class="testimonial-audio">
+    <source src="Testimonial/Audiofile/2026-04-12 18-42-27.mp3">
+  </audio>
+</div>
   </div>
 
 </section>
@@ -671,6 +675,29 @@ animate();
       modal.style.display = "none";
     }
   }
+</script>
+
+  <script>
+function toggleAudio(button) {
+  const card = button.closest(".testimonial-card");
+  const audio = card.querySelector(".testimonial-audio");
+
+  // If audio is paused → play
+  if (audio.paused) {
+    audio.play();
+    button.innerHTML = "⏸";
+  } 
+  // If playing → pause
+  else {
+    audio.pause();
+    button.innerHTML = "▶";
+  }
+
+  // When audio ends → reset button
+  audio.onended = () => {
+    button.innerHTML = "▶";
+  };
+}
 </script>
   
   <div id="quoteModal" class="modal-overlay" style="display:none;">
