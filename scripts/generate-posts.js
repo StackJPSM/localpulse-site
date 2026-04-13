@@ -4,8 +4,8 @@ const path = require("path");
 const postsDir = path.join(__dirname, "../content/products");
 const outputFile = path.join(__dirname, "../posts.json");
 
-// ✅ Correct base path for GitHub Pages
-const publicFolder = "/localpulse-site/images/uploads";
+// ✅ Correct public path for your live domain (evoora.net)
+const publicFolder = "/images/uploads";
 
 let posts = [];
 
@@ -19,24 +19,21 @@ fs.readdirSync(postsDir).forEach(file => {
 
     let imagePath = imageMatch ? imageMatch[1].trim() : "";
 
-    // ✅ ALWAYS clean and rebuild the image path
+    // ✅ Fix image path properly
     if (imagePath) {
-      const fileName = path.basename(imagePath); // <-- THIS is the key fix
+      const fileName = path.basename(imagePath);
       imagePath = `${publicFolder}/${fileName}`;
     }
 
     posts.push({
-      title: titleMatch ? titleMatch[1] : "No title",
+      title: titleMatch ? titleMatch[1].trim() : "No title",
       image: imagePath,
-      description: descMatch ? descMatch[1] : ""
+      description: descMatch ? descMatch[1].trim() : ""
     });
   }
 });
 
-// ✅ make sure file actually writes
+// ✅ Write JSON once (fixed duplicate write issue)
 fs.writeFileSync(outputFile, JSON.stringify(posts, null, 2));
 
-console.log("posts.json generated!");
-fs.writeFileSync(outputFile, JSON.stringify(posts, null, 2));
-
-console.log("posts.json generated!");
+console.log("posts.json generated successfully!");
