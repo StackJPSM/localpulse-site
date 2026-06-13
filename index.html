@@ -89,7 +89,7 @@ SHOPIFY CONFIG
 const domain = "k3xcdb-cx.myshopify.com";
 
 /* 🔴 PASTE YOUR STOREFRONT TOKEN HERE */
-const storefrontAccessToken = "PASTE_YOUR_STOREFRONT_TOKEN_HERE";
+const storefrontAccessToken = "atkn_0004e0492a6ace3388b8778b0fa9780c25e9f62a896e050a0fd32a12a6aed9fc";
 
 /* ==============================
 DEBUG CHECK
@@ -106,7 +106,7 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "X-Shopify-Storefront-Access-Token": storefrontAccessToken
+    "atkn_0004e0492a6ace3388b8778b0fa9780c25e9f62a896e050a0fd32a12a6aed9fc": storefrontAccessToken
   },
   body: JSON.stringify({
     query: `
