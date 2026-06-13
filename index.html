@@ -82,31 +82,16 @@ pre{
 
 <script>
 
-/* ==============================
-SHOPIFY CONFIG
-============================== */
-
 const domain = "k3xcdb-cx.myshopify.com";
 
 /* 🔴 PASTE YOUR STOREFRONT TOKEN HERE */
 const storefrontAccessToken = "atkn_0004e0492a6ace3388b8778b0fa9780c25e9f62a896e050a0fd32a12a6aed9fc";
 
-/* ==============================
-DEBUG CHECK
-============================== */
-
-console.log("Shopify endpoint:");
-console.log(`https://${domain}/api/2024-01/graphql.json`);
-
-/* ==============================
-FETCH PRODUCTS
-============================== */
-
 fetch(`https://${domain}/api/2024-01/graphql.json`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "atkn_0004e0492a6ace3388b8778b0fa9780c25e9f62a896e050a0fd32a12a6aed9fc": storefrontAccessToken
+    "X-Shopify-Storefront-Access-Token": storefrontAccessToken
   },
   body: JSON.stringify({
     query: `
@@ -144,8 +129,6 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
 })
 .then(res => res.json())
 .then(data => {
-
-  console.log("Response:", data);
 
   document.getElementById("debug").textContent =
     JSON.stringify(data, null, 2);
@@ -193,20 +176,12 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
 
 })
 .catch(err => {
-  console.error(err);
   document.getElementById("debug").textContent = err.toString();
 });
 
-/* ==============================
-CHECKOUT
-============================== */
-
 function buyNow(variantId){
-  if (!variantId) return;
-
   const realId = variantId.split("/").pop();
-  window.location.href =
-    `https://${domain}/cart/${realId}:1`;
+  window.location.href = `https://${domain}/cart/${realId}:1`;
 }
 
 </script>
