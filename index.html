@@ -1,190 +1,754 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Shopify Storefront</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" href="images/uploads/logo.png">
+  <link rel="icon" type="images/uploads/logo.png" href="images/uploads/logo.png">
+  <title>Evoora</title>
+  <meta name="description" content="Evoora Digital: Hand-crafted web architecture and aggressive local marketing for growing businesses. Stop juggling agencies, start building momentum.">
 
-<style>
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#050816;
-  color:white;
-  padding:40px;
+<meta property="og:title" content="Evoora Digital | Local Advertising Partner">
+<meta property="og:description" content="Custom web services and local campaigns designed to give up-and-coming businesses a fair shot.">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #0b0b0b;
+      color: white;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 25px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(178,102,255,0.2);
+      z-index: 100;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: #d6b3ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .navbar a:hover {
+      color: #b266ff;
+    }
+
+    /* BACKGROUND NETWORK */
+    .network-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    header {
+      text-align: center;
+      padding: 120px 20px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #b266ff;
+    }
+
+    header p {
+      color: #aaa;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    /* 3D CUBE */
+    .cube-container {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      perspective: 800px;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s infinite linear;
+    }
+
+    .face {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(178,102,255,0.1);
+      border: 1px solid rgba(178,102,255,0.5);
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(60px); }
+    .back   { transform: rotateY(180deg) translateZ(60px); }
+    .left   { transform: rotateY(-90deg) translateZ(60px); }
+    .right  { transform: rotateY(90deg) translateZ(60px); }
+    .top    { transform: rotateX(90deg) translateZ(60px); }
+    .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+    @keyframes rotateCube {
+      0% { transform: rotateX(0) rotateY(0); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+
+    .about {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+.about-container {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Space between image and text */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-h1{
-  color:#63f5d2;
-  margin-bottom:30px;
+.about-image {
+  flex: 1;
 }
 
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:25px;
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Optional: rounds the corners */
 }
 
-.product-card{
-  background:#0d1324;
-  border:1px solid rgba(99,245,210,0.15);
-  border-radius:18px;
-  overflow:hidden;
+.about-content {
+  flex: 1;
 }
 
-.product-card img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
+/* Responsive adjustment for mobile phones */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: #111;
+      border-radius: 20px;
+      padding: 25px;
+      width: 300px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card h2 {
+      color: #b266ff;
+    }
+
+    .price {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 10px 0;
+      border-bottom: 1px solid #222;
+      padding-bottom: 5px;
+    }
+
+.modal-overlay {
+  position: fixed; /* Fixes it to the browser window */
+  top: 0;
+  left: 0;
+  width: 100vw;    /* Full viewport width */
+  height: 100vh;   /* Full viewport height */
+  background: rgba(0, 0, 0, 0.7); 
+  backdrop-filter: blur(10px);    /* The blur effect */
+  -webkit-backdrop-filter: blur(10px);
+  display: none;   /* JavaScript will change this to 'flex' */
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;  /* Highest possible priority */
 }
 
-.product-info{
-  padding:18px;
+.modal-content {
+  background: #111;
+  padding: 40px;
+  border-radius: 20px;
+  border: 1px solid #b266ff;
+  width: 90%;
+  max-width: 450px;
+  z-index: 100000; /* Sits on top of the overlay */
 }
 
-.price{
-  color:#63f5d2;
-  font-size:1.3rem;
-  font-weight:bold;
-  margin:12px 0;
+/* Animation for a smooth entrance */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  background:#63f5d2;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
+/* Close button styling */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #b266ff;
 }
 
-pre{
-  margin-top:40px;
-  background:#111827;
-  padding:15px;
-  border-radius:10px;
-  overflow:auto;
-  color:#9ca3af;
-  font-size:12px;
+.close-btn:hover {
+  color: white;
 }
-</style>
+
+    .modal-content h3 {
+  margin-top: 0;
+  color: #b266ff;
+}
+
+.modal-content input, 
+.modal-content textarea {
+  width: 100%;
+  margin: 12px 0;
+  padding: 12px;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: white;
+  box-sizing: border-box; /* Ensures padding doesn't break width */
+}
+
+.modal-content input:focus {
+  border-color: #b266ff;
+  outline: none;
+}
+    
+    .cta {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #b266ff;
+      color: black;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .blog {
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .posts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .post {
+      background: #111;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+    }
+
+    .post img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid rgba(178,102,255,0.2);
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .footer-col h4 {
+      color: #b266ff;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin: 6px 0;
+    }
+
+    .footer-col a:hover {
+      color: #b266ff;
+    }
+
+    .small-footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
+
+    /* TESTIMONIALS (ADDED ONLY) */
+    .testimonials {
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .testimonial-card {
+      background: #111;
+      border-radius: 20px;
+      padding: 20px;
+      position: relative;
+      min-height: 120px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+
+    .section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: coral;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+    
+.audio-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+
+  width: 45px;
+  height: 45px;
+
+  background: #7c3aed; /* purple */
+  color: white;
+
+  border: none;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.4);
+
+  transition: 0.25s ease;
+}
+
+.audio-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.6);
+}
+
+    .audio-btn.playing {
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(124,58,237,0.4); }
+  50% { box-shadow: 0 0 20px rgba(124,58,237,0.8); }
+  100% { box-shadow: 0 0 10px rgba(124,58,237,0.4); }
+}
+
+    @media (max-width: 768px) {
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
 
-<h1>My Shopify Store</h1>
+<!-- NAVBAR (ONLY ADDITIONS HERE) -->
+<div class="navbar">
+  <a href="#about">About</a>
+  <a href="#services">Services</a>
+  <a href="#testimonials">Testimonials</a>
+  <a href="#products">Products</a>
+</div>
 
-<div class="product-grid" id="productGrid"></div>
+<div class="network-bg">
+  <canvas id="networkCanvas"></canvas>
+</div>
 
-<pre id="debug">Loading Shopify data...</pre>
+<header>
 
+  <div class="cube-container">
+    <div class="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face left"></div>
+      <div class="face right"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>
+
+  <h1>Evoora Digital</h1>
+  <p>Your local digital advertising partner, Stop juggling agencies. Start building momentum. </p>
+</header>
+
+<!-- YOUR ORIGINAL ABOUT SECTION (UNCHANGED) -->
+<section id="about" class="about">
+  <div class="about-container">
+    <div class="about-image">
+      <img src="images/uploads/evoora-office.png" alt="About Evoora Digital">
+    </div>
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>Evoora Digital blends custom web architecture with aggressive local marketing. We build your digital foundation and then turn the volume up until the right people hear you. Evoora was created to be the partner we wish we had when starting out. We build high-end web services and local campaigns designed specifically to give up-and-coming businesses a fair shot. With affordable, hand-crafted strategies, we’re here to help you start fresh and finish first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR ORIGINAL SERVICES SECTION (UNCHANGED - IMPORTANT) -->
+<section class="container" id="services">
+
+  <div class="card">
+    <h2>Starter: Local Foundation</h2>
+    <div class="price">$749/mo</div>
+    <ul>
+      <li>Basic Google Ads</li>
+      <li>Meta Ads (Facebook & Instagram)</li>
+      <li>1 Email Newsletter per week</li>
+      <li>Monthly Performance Report</li>
+    </ul>
+    <a href="https://buy.stripe.com/4gMcN51WnfpGb6reotaR202" class="cta">Get Started</a>
+  </div>
+
+  <div class="card">
+    <h2>Growth: Brand Builder</h2>
+    <div class="price">$1,850/mo</div>
+    <ul>
+      <li>Multichannel Ads (Meta, Google, Snapchat)</li>
+      <li>2 Email Newsletters per week</li>
+      <li>3 Social Media posts per week</li>
+      <li>Monthly Performance Report</li>
+      <li><strong>$200 Discount</strong> on Website or SEO services</li>
+    </ul>
+    <a href="https://buy.stripe.com/aFaeVd30r5P60rN4NTaR203" class="cta">Get Started</a>
+  </div>
+
+  <div class="card">
+    <h2>Custom</h2>
+    <div class="price">Contact for Quote</div>
+    <ul>
+      <li>All Advertising Services</li>
+      <li>Special Discount per Ad Spend</li>
+      <li>Email Training Campaigns</li>
+      <li>Custom Request Services</li>
+    </ul>
+    <a href="javascript:void(0)" class="cta" onclick="toggleQuoteModal()">Request a Quote</a>
+    
+  </div>
+
+</section>
+
+<p style="text-align: center; font-size: 0.8rem; margin-top: 20px;">
+  *Rates may differ if requirements are less than the Growth plan or exceed standard parameters.
+</p>
+
+<!-- TESTIMONIALS (ADDED ONLY) -->
+<section class="testimonials" id="testimonials">
+  <h2>Testimonials</h2>
+
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+        <h3 class="testimonial-title">Jerry R. - CraftedbyLauren</h3>
+      <p>He was great to work with and got my brand made so quick. Can not wait to do future business. Receiving more calls now than ever.</p>
+       <button class="audio-btn" onclick="toggleAudio(this)">
+    ▶
+  </button>
+  <audio class="testimonial-audio">
+    <source src="Testimonial/Audiofile/craftedbylauren.mp3">
+  </audio>
+</div>
+  </div>
+
+</section>
+
+<!-- PRODUCTS (UNCHANGED) -->
+<section class="blog" id="products">
+  <h2>Products</h2>
+  <div class="posts" id="posts"></div>
+</section>
+
+<!-- FOOTER (ADDED ONLY) -->
+<footer>
+
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="info@evoora.net">Email info@evoora.net</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <a href="application.html">Application</a>
+      <a href="/website-seo">Website & SEO</a>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Social</h4>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+      <a href="https://www.snapchat.com/@evoora-digital?sender_web_id=91093f3b-0b4b-4fb6-ae1d-e143dd8c1e22&device_type=desktop&is_copy_url=true">Snapchat</a>
+    </div>
+
+  </div>
+
+  <div class="small-footer">
+    © 2026 Evoora Digital
+  </div>
+
+</footer>
+
+<!-- YOUR ORIGINAL SCRIPTS (UNCHANGED) -->
 <script>
+fetch('./posts.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('posts');
 
-const domain = "k3xcdb-cx.myshopify.com";
+    data.forEach(post => {
+      const div = document.createElement('div');
+      div.className = 'post';
 
-/* 🔴 PASTE YOUR STOREFRONT TOKEN HERE */
-const storefrontAccessToken = "atkn_0004e0492a6ace3388b8778b0fa9780c25e9f62a896e050a0fd32a12a6aed9fc";
+      div.innerHTML = `
+        <img src="${post.image}" />
+        <h3>${post.title}</h3>
+        <p>${post.description}</p>
+      `;
 
-fetch(`https://${domain}/api/2024-01/graphql.json`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "X-Shopify-Storefront-Access-Token": storefrontAccessToken
-  },
-  body: JSON.stringify({
-    query: `
-    {
-      products(first: 10) {
-        edges {
-          node {
-            id
-            title
-            description
-            images(first: 1) {
-              edges {
-                node {
-                  url
-                }
-              }
-            }
-            variants(first: 1) {
-              edges {
-                node {
-                  id
-                  priceV2 {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    `
+      container.appendChild(div);
+    });
   })
-})
-.then(res => res.json())
-.then(data => {
-
-  document.getElementById("debug").textContent =
-    JSON.stringify(data, null, 2);
-
-  const products = data?.data?.products?.edges || [];
-  const grid = document.getElementById("productGrid");
-
-  if (!products.length) {
-    grid.innerHTML = "<h2>No products found</h2>";
-    return;
-  }
-
-  products.forEach(({ node }) => {
-
-    const image =
-      node.images.edges[0]?.node.url ||
-      "https://via.placeholder.com/500";
-
-    const variant =
-      node.variants.edges[0]?.node;
-
-    const price =
-      variant?.priceV2?.amount || "0.00";
-
-    const variantId =
-      variant?.id;
-
-    const card = document.createElement("div");
-    card.className = "product-card";
-
-    card.innerHTML = `
-      <img src="${image}" />
-      <div class="product-info">
-        <h2>${node.title}</h2>
-        <p>${node.description || ""}</p>
-        <div class="price">$${price}</div>
-        <button onclick="buyNow('${variantId}')">
-          BUY NOW
-        </button>
-      </div>
-    `;
-
-    grid.appendChild(card);
-  });
-
-})
-.catch(err => {
-  document.getElementById("debug").textContent = err.toString();
-});
-
-function buyNow(variantId){
-  const realId = variantId.split("/").pop();
-  window.location.href = `https://${domain}/cart/${realId}:1`;
-}
-
+  .catch(err => console.log('Error loading posts:', err));
 </script>
 
+<script>
+document.querySelectorAll('.navbar a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+</script>
+
+<script>
+const canvas = document.getElementById("networkCanvas");
+const ctx = canvas.getContext("2d");
+
+let nodes = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+class Node {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height * 0.6;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+  }
+
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+    if (this.y < 0 || this.y > canvas.height * 0.6) this.vy *= -1;
+  }
+
+  draw() {
+    ctx.fillStyle = "#b266ff";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function init() {
+  nodes = [];
+  for (let i = 0; i < 80; i++) {
+    nodes.push(new Node());
+  }
+}
+init();
+
+function drawLines() {
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+
+      let dx = nodes[i].x - nodes[j].x;
+      let dy = nodes[i].y - nodes[j].y;
+      let dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 120) {
+        ctx.strokeStyle = "rgba(178,102,255," + (1 - dist / 120) + ")";
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  nodes.forEach(n => {
+    n.move();
+    n.draw();
+  });
+
+  drawLines();
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+  <script>
+  function toggleQuoteModal() {
+  const modal = document.getElementById('quoteModal');
+  if (modal.style.display === 'none' || modal.style.display === '') {
+    modal.style.display = 'flex'; // This centers the modal-content
+    document.body.style.overflow = 'hidden'; // Prevents background scrolling
+  } else {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';   // Enables scrolling again
+  }
+}
+  // Optional: Close if they click outside the box
+  window.onclick = function(event) {
+    const modal = document.getElementById('quoteModal');
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+  <script>
+function toggleAudio(button) {
+  const card = button.closest(".testimonial-card");
+  const audio = card.querySelector(".testimonial-audio");
+
+  if (audio.paused) {
+    audio.play();
+    button.innerHTML = "⏸";
+    button.classList.add("playing");
+  } else {
+    audio.pause();
+    button.innerHTML = "▶";
+    button.classList.remove("playing");
+  }
+
+  audio.onended = () => {
+    button.innerHTML = "▶";
+    button.classList.remove("playing");
+  };
+}
+</script>
+  
+  <div id="quoteModal" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn" onclick="toggleQuoteModal()">&times;</span>
+    <h3>Quick Quote</h3>
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="a05ec7bd-77a8-4dfc-9d28-82c8482b78b8">
+      
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Your Name" required>
+      
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Email Address" required>
+      
+      <label>Message</label>
+      <textarea name="message" placeholder="Tell us about your project" required></textarea>
+      
+      <button type="submit" class="cta">Submit Form</button>
+    </form>
+  </div>
+</div
+  
 </body>
 </html>
