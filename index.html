@@ -1,950 +1,425 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>EVOORA Official Store</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    body{
-      font-family:'Roboto',sans-serif;
-      background:#050505;
-      color:white;
-      overflow-x:hidden;
-    }
-
-    a{
-      text-decoration:none;
-    }
-
-    /* BACKGROUND */
-    .network-bg{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      z-index:0;
-      pointer-events:none;
-    }
-
-    canvas{
-      display:block;
-    }
-
-    /* NAVBAR */
-
-    .navbar{
-      position:fixed;
-      top:0;
-      width:100%;
-      z-index:999;
-      backdrop-filter:blur(20px);
-      background:rgba(5,5,5,0.7);
-      border-bottom:1px solid rgba(178,102,255,0.15);
-    }
-
-    .nav-inner{
-      max-width:1400px;
-      margin:auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:20px;
-    }
-
-    .logo{
-      font-size:2rem;
-      font-weight:900;
-      letter-spacing:4px;
-      color:#b266ff;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:30px;
-    }
-
-    .nav-links a{
-      color:#ddd;
-      font-size:0.95rem;
-      transition:0.25s;
-    }
-
-    .nav-links a:hover{
-      color:#b266ff;
-    }
-
-    .nav-icons{
-      display:flex;
-      gap:15px;
-      font-size:1.2rem;
-    }
-
-    /* HERO */
-
-    .hero{
-      position:relative;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:120px 20px 80px;
-      z-index:2;
-    }
-
-    .hero-overlay{
-      position:absolute;
-      inset:0;
-      background:
-      linear-gradient(
-      rgba(0,0,0,0.7),
-      rgba(0,0,0,0.85)
-      ),
-      url('images/uploads/evoora-stage.jpg');
-      background-size:cover;
-      background-position:center;
-      z-index:-1;
-    }
-
-    .hero-content{
-      max-width:900px;
-    }
-
-    .hero h1{
-      font-size:6rem;
-      font-weight:900;
-      letter-spacing:8px;
-      margin-bottom:20px;
-    }
-
-    .hero p{
-      font-size:1.3rem;
-      color:#cfcfcf;
-      margin-bottom:35px;
-    }
-
-    .cta{
-      display:inline-block;
-      padding:16px 40px;
-      border-radius:14px;
-      background:#b266ff;
-      color:black;
-      font-weight:700;
-      transition:0.25s;
-    }
-
-    .cta:hover{
-      transform:translateY(-3px);
-      box-shadow:0 0 20px rgba(178,102,255,0.4);
-    }
-
-    /* SECTION TITLE */
-
-    .section-title{
-      text-align:center;
-      margin-bottom:50px;
-    }
-
-    .section-title h2{
-      font-size:2.8rem;
-      margin-bottom:10px;
-    }
-
-    .section-title p{
-      color:#aaa;
-    }
-
-    /* FEATURED PRODUCTS */
-
-    .featured{
-      padding:100px 20px;
-      position:relative;
-      z-index:2;
-    }
-
-    .product-grid{
-      max-width:1400px;
-      margin:auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:30px;
-    }
-
-    .product-card{
-      background:#0f0f0f;
-      border:1px solid rgba(178,102,255,0.12);
-      border-radius:24px;
-      overflow:hidden;
-      transition:0.3s;
-      cursor:pointer;
-    }
-
-    .product-card:hover{
-      transform:translateY(-8px);
-      border-color:#b266ff;
-      box-shadow:0 0 25px rgba(178,102,255,0.15);
-    }
-
-    .product-image{
-      height:320px;
-      background:#151515;
-      overflow:hidden;
-    }
-
-    .product-image img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition:0.35s;
-    }
-
-    .product-card:hover img{
-      transform:scale(1.05);
-    }
-
-    .product-info{
-      padding:22px;
-    }
-
-    .product-info h3{
-      font-size:1.2rem;
-      margin-bottom:10px;
-    }
-
-    .product-info p{
-      color:#999;
-      font-size:0.92rem;
-      margin-bottom:15px;
-    }
-
-    .product-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    .price{
-      font-size:1.3rem;
-      font-weight:700;
-      color:#b266ff;
-    }
-
-    /* BANNER */
-
-    .promo-banner{
-      margin:60px auto;
-      max-width:1400px;
-      border-radius:28px;
-      overflow:hidden;
-      position:relative;
-      min-height:350px;
-      display:flex;
-      align-items:center;
-      padding:60px;
-      background:
-      linear-gradient(
-      rgba(0,0,0,0.5),
-      rgba(0,0,0,0.8)
-      ),
-      url('images/uploads/evoora-banner.jpg');
-      background-size:cover;
-      background-position:center;
-    }
-
-    .promo-content{
-      max-width:550px;
-    }
-
-    .promo-content h2{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
-
-    .promo-content p{
-      color:#ddd;
-      margin-bottom:25px;
-      line-height:1.6;
-    }
-
-    /* COMMUNITY */
-
-    .community{
-      padding:100px 20px;
-      position:relative;
-      z-index:2;
-    }
-
-    .community-grid{
-      max-width:1200px;
-      margin:auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:25px;
-    }
-
-    .community-card{
-      background:#101010;
-      border-radius:20px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,0.05);
-    }
-
-    .community-card img{
-      width:100%;
-      height:260px;
-      object-fit:cover;
-    }
-
-    .community-card-content{
-      padding:20px;
-    }
-
-    .community-card-content h3{
-      margin-bottom:10px;
-    }
-
-    .community-card-content p{
-      color:#aaa;
-      line-height:1.5;
-    }
-
-    /* NEWSLETTER */
-
-    .newsletter{
-      padding:100px 20px;
-      position:relative;
-      z-index:2;
-    }
-
-    .newsletter-box{
-      max-width:900px;
-      margin:auto;
-      background:#111;
-      border-radius:28px;
-      padding:60px 40px;
-      text-align:center;
-      border:1px solid rgba(178,102,255,0.15);
-    }
-
-    .newsletter-box h2{
-      font-size:2.5rem;
-      margin-bottom:15px;
-    }
-
-    .newsletter-box p{
-      color:#aaa;
-      margin-bottom:30px;
-    }
-
-    .newsletter-form{
-      display:flex;
-      gap:15px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    .newsletter-form input{
-      width:350px;
-      max-width:100%;
-      padding:16px;
-      border-radius:12px;
-      border:none;
-      background:#1d1d1d;
-      color:white;
-    }
-
-    .newsletter-form button{
-      padding:16px 30px;
-      border:none;
-      border-radius:12px;
-      background:#b266ff;
-      color:black;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    /* FOOTER */
-
-    footer{
-      padding:70px 20px 40px;
-      background:#090909;
-      border-top:1px solid rgba(255,255,255,0.05);
-      position:relative;
-      z-index:2;
-    }
-
-    .footer-grid{
-      max-width:1200px;
-      margin:auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:40px;
-    }
-
-    .footer-col h4{
-      margin-bottom:18px;
-      color:#b266ff;
-    }
-
-    .footer-col a{
-      display:block;
-      color:#aaa;
-      margin-bottom:10px;
-    }
-
-    .footer-col a:hover{
-      color:white;
-    }
-
-    .footer-bottom{
-      text-align:center;
-      margin-top:50px;
-      color:#666;
-    }
-
-    /* PRODUCT MODAL */
-
-    .modal{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.85);
-      backdrop-filter:blur(10px);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-      padding:20px;
-    }
-
-    .modal-content{
-      width:100%;
-      max-width:1100px;
-      background:#0e0e0e;
-      border-radius:28px;
-      overflow:hidden;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      border:1px solid rgba(178,102,255,0.2);
-    }
-
-    .modal-gallery{
-      background:#151515;
-      padding:20px;
-    }
-
-    .modal-gallery img{
-      width:100%;
-      border-radius:20px;
-    }
-
-    .modal-details{
-      padding:40px;
-    }
-
-    .modal-details h2{
-      font-size:2.5rem;
-      margin-bottom:15px;
-    }
-
-    .modal-details p{
-      color:#aaa;
-      line-height:1.7;
-      margin-bottom:25px;
-    }
-
-    .sizes{
-      display:flex;
-      gap:10px;
-      margin-bottom:30px;
-    }
-
-    .size{
-      width:45px;
-      height:45px;
-      border-radius:10px;
-      border:1px solid #444;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
-
-    .size:hover{
-      border-color:#b266ff;
-    }
-
-    .close-modal{
-      position:absolute;
-      top:20px;
-      right:30px;
-      font-size:2rem;
-      cursor:pointer;
-      color:white;
-    }
-
-    @media(max-width:900px){
-
-      .hero h1{
-        font-size:4rem;
-      }
-
-      .modal-content{
-        grid-template-columns:1fr;
-      }
-
-      .nav-links{
-        display:none;
-      }
-    }
-
-    @media(max-width:600px){
-
-      .hero h1{
-        font-size:3rem;
-      }
-
-      .promo-content h2{
-        font-size:2rem;
-      }
-
-      .newsletter-box{
-        padding:40px 25px;
-      }
-    }
-
-  </style>
-</head>
-
-<body>
-
-<div class="network-bg">
-  <canvas id="networkCanvas"></canvas>
-</div>
-
-<!-- NAVBAR -->
-
-<nav class="navbar">
-  <div class="nav-inner">
-
-    <div class="logo">
-      EVOORA
-    </div>
-
-    <div class="nav-links">
-      <a href="#featured">Shop</a>
-      <a href="#community">Community</a>
-      <a href="#newsletter">Newsletter</a>
-      <a href="#footer">Support</a>
-    </div>
-
-    <div class="nav-icons">
-      🛒
-    </div>
-
-  </div>
-</nav>
-
-<!-- HERO -->
-
-<section class="hero">
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-    <h1>EVOORA</h1>
-    <p>
-      Official Apparel • Accessories • Limited Drops
-    </p>
-
-    <a href="#featured" class="cta">
-      SHOP COLLECTION
-    </a>
-  </div>
-
-</section>
-
-<!-- FEATURED PRODUCTS -->
-
-<section class="featured" id="featured">
-
-  <div class="section-title">
-    <h2>Featured Collection</h2>
-    <p>Premium apparel designed for the EVOORA movement.</p>
-  </div>
-
-  <div class="product-grid">
-
-    <div class="product-card" onclick="openModal()">
-      <div class="product-image">
-        <img src="images/uploads/hoodie.png">
-      </div>
-
-      <div class="product-info">
-        <h3>EVOORA Hoodie</h3>
-        <p>Heavyweight premium embroidered hoodie.</p>
-
-        <div class="product-bottom">
-          <div class="price">$65</div>
-          <a class="cta">View</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-image">
-        <img src="images/uploads/shirt.png">
-      </div>
-
-      <div class="product-info">
-        <h3>EVOORA Tee</h3>
-        <p>Minimal streetwear inspired fit.</p>
-
-        <div class="product-bottom">
-          <div class="price">$35</div>
-          <a class="cta">View</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-image">
-        <img src="images/uploads/jersey.png">
-      </div>
-
-      <div class="product-info">
-        <h3>EVOORA Jersey</h3>
-        <p>Festival-ready oversized jersey.</p>
-
-        <div class="product-bottom">
-          <div class="price">$55</div>
-          <a class="cta">View</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-image">
-        <img src="images/uploads/hat.png">
-      </div>
-
-      <div class="product-info">
-        <h3>EVOORA Snapback</h3>
-        <p>Clean minimal embroidered cap.</p>
-
-        <div class="product-bottom">
-          <div class="price">$30</div>
-          <a class="cta">View</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PROMO -->
-
-  <div class="promo-banner">
-
-    <div class="promo-content">
-      <h2>Built For The Culture</h2>
-
-      <p>
-        EVOORA merges streetwear aesthetics with nightlife energy.
-        Designed for creators, events, and the community behind them.
-      </p>
-
-      <a href="#" class="cta">
-        Explore Drops
-      </a>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- COMMUNITY -->
-
-<section class="community" id="community">
-
-  <div class="section-title">
-    <h2>Community</h2>
-    <p>The movement behind the brand.</p>
-  </div>
-
-  <div class="community-grid">
-
-    <div class="community-card">
-      <img src="images/uploads/community1.jpg">
-
-      <div class="community-card-content">
-        <h3>Festival Nights</h3>
-        <p>
-          Built for high-energy experiences and unforgettable nights.
-        </p>
-      </div>
-    </div>
-
-    <div class="community-card">
-      <img src="images/uploads/community2.jpg">
-
-      <div class="community-card-content">
-        <h3>Streetwear Inspired</h3>
-        <p>
-          Minimal aesthetics with premium quality construction.
-        </p>
-      </div>
-    </div>
-
-    <div class="community-card">
-      <img src="images/uploads/community3.jpg">
-
-      <div class="community-card-content">
-        <h3>Exclusive Drops</h3>
-        <p>
-          Limited edition releases and members-only collections.
-        </p>
-      </div>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- NEWSLETTER -->
-
-<section class="newsletter" id="newsletter">
-
-  <div class="newsletter-box">
-
-    <h2>Join The EVOORA Movement</h2>
-
-    <p>
-      Early access, exclusive drops, and special discounts.
-    </p>
-
-    <form class="newsletter-form">
-
-      <input type="email" placeholder="Enter your email">
-
-      <button type="submit">
-        JOIN NOW
-      </button>
-
-    </form>
-
-  </div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer id="footer">
-
-  <div class="footer-grid">
-
-    <div class="footer-col">
-      <h4>Shop</h4>
-      <a href="#">New Arrivals</a>
-      <a href="#">Collections</a>
-      <a href="#">Best Sellers</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Support</h4>
-      <a href="#">Contact</a>
-      <a href="#">Shipping</a>
-      <a href="#">Returns</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Social</h4>
-      <a href="#">Instagram</a>
-      <a href="#">TikTok</a>
-      <a href="#">Twitter</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <a href="mailto:info@evoora.net">
-        info@evoora.net
-      </a>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 EVOORA
-  </div>
-
-</footer>
-
-<!-- PRODUCT MODAL -->
-
-<div class="modal" id="productModal">
-
-  <div class="close-modal" onclick="closeModal()">
-    ×
-  </div>
-
-  <div class="modal-content">
-
-    <div class="modal-gallery">
-      <img src="images/uploads/hoodie.png">
-    </div>
-
-    <div class="modal-details">
-
-      <h2>EVOORA Hoodie</h2>
-
-      <div class="price" style="margin-bottom:20px;">
-        $65
-      </div>
-
-      <p>
-        Premium heavyweight hoodie designed with oversized comfort,
-        embroidered EVOORA branding, and streetwear-inspired styling.
-      </p>
-
-      <h3 style="margin-bottom:15px;">
-        Sizes
-      </h3>
-
-      <div class="sizes">
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
-      </div>
-
-      <a href="#" class="cta">
-        Add To Cart
-      </a>
-
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-
-  // MODAL
-
-  function openModal(){
-    document.getElementById('productModal').style.display='flex';
+/* =========================
+   EVOORA SEAFOAM THEME
+   REPLACE YOUR CURRENT CSS
+   COLORS WITH THESE
+========================= */
+
+:root{
+  --primary:#63f5d2;
+  --primary-dark:#39d8b5;
+  --bg:#050816;
+  --card:#0c1020;
+  --card2:#11182d;
+  --text:#ffffff;
+  --muted:#94a3b8;
+  --border:rgba(99,245,210,0.15);
+  --glow:rgba(99,245,210,0.35);
+}
+
+/* BODY */
+
+body{
+  background:
+  radial-gradient(circle at top,
+  rgba(99,245,210,0.08),
+  transparent 40%),
+  #050816;
+  color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+  background:rgba(5,8,22,0.72);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(18px);
+}
+
+.logo{
+  color:var(--primary);
+  letter-spacing:6px;
+}
+
+.nav-links a{
+  color:#d7e3ea;
+}
+
+.nav-links a:hover{
+  color:var(--primary);
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  align-items:flex-end;
+  padding-bottom:120px;
+}
+
+.hero-overlay{
+  background:
+  linear-gradient(
+  rgba(3,5,15,0.45),
+  rgba(3,5,15,0.92)
+  ),
+  url('images/uploads/evoora-stage.jpg');
+
+  background-size:cover;
+  background-position:center;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at center,
+  rgba(99,245,210,0.10),
+  transparent 45%);
+}
+
+.hero-content{
+  max-width:1200px;
+  width:100%;
+  text-align:left;
+}
+
+.hero h1{
+  font-size:7rem;
+  font-weight:900;
+  line-height:0.95;
+  margin-bottom:25px;
+
+  background:linear-gradient(
+  to bottom,
+  #ffffff,
+  #63f5d2
+  );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  max-width:650px;
+  font-size:1.15rem;
+  color:#d3dde7;
+  line-height:1.8;
+  margin-bottom:35px;
+}
+
+/* BUTTON */
+
+.cta{
+  background:var(--primary);
+  color:#041014;
+  border-radius:14px;
+  padding:16px 34px;
+  font-weight:800;
+  box-shadow:0 0 25px rgba(99,245,210,0.22);
+}
+
+.cta:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 40px rgba(99,245,210,0.45);
+}
+
+/* FEATURED SECTION */
+
+.featured{
+  padding-top:40px;
+}
+
+.section-title h2{
+  font-size:3rem;
+  margin-bottom:12px;
+}
+
+.section-title p{
+  color:#9fb0bc;
+}
+
+/* PRODUCT GRID */
+
+.product-grid{
+  grid-template-columns:
+  repeat(auto-fit,minmax(290px,1fr));
+
+  gap:26px;
+}
+
+.product-card{
+  background:
+  linear-gradient(
+  180deg,
+  rgba(255,255,255,0.03),
+  rgba(255,255,255,0.01)
+  );
+
+  border:1px solid var(--border);
+
+  border-radius:26px;
+
+  overflow:hidden;
+
+  transition:0.3s ease;
+}
+
+.product-card:hover{
+  transform:translateY(-10px);
+  border-color:rgba(99,245,210,0.45);
+
+  box-shadow:
+  0 0 35px rgba(99,245,210,0.12);
+}
+
+.product-image{
+  background:
+  radial-gradient(circle at top,
+  rgba(99,245,210,0.08),
+  transparent 50%),
+  #0b1222;
+
+  height:360px;
+}
+
+.product-image img{
+  object-fit:contain;
+  padding:25px;
+}
+
+.product-info{
+  padding:26px;
+}
+
+.product-info h3{
+  font-size:1.3rem;
+  margin-bottom:10px;
+}
+
+.product-info p{
+  color:#8ea0ae;
+  line-height:1.6;
+}
+
+.price{
+  color:var(--primary);
+  font-size:1.5rem;
+  font-weight:800;
+}
+
+/* PROMO SECTION */
+
+.promo-banner{
+  margin-top:90px;
+
+  border:1px solid var(--border);
+
+  background:
+  linear-gradient(
+  rgba(5,8,22,0.45),
+  rgba(5,8,22,0.90)
+  ),
+  url('images/uploads/evoora-banner.jpg');
+
+  background-size:cover;
+  background-position:center;
+
+  min-height:420px;
+}
+
+.promo-banner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at left,
+  rgba(99,245,210,0.18),
+  transparent 40%);
+}
+
+.promo-content{
+  position:relative;
+  z-index:2;
+}
+
+.promo-content h2{
+  font-size:4rem;
+  line-height:1;
+  margin-bottom:24px;
+}
+
+.promo-content p{
+  color:#d6dee6;
+  line-height:1.8;
+}
+
+/* COMMUNITY */
+
+.community-card{
+  background:
+  linear-gradient(
+  180deg,
+  rgba(255,255,255,0.02),
+  rgba(255,255,255,0.01)
+  );
+
+  border:1px solid rgba(99,245,210,0.08);
+
+  overflow:hidden;
+}
+
+.community-card img{
+  height:320px;
+}
+
+.community-card-content{
+  padding:28px;
+}
+
+.community-card-content h3{
+  margin-bottom:12px;
+}
+
+.community-card-content p{
+  color:#94a3b8;
+  line-height:1.7;
+}
+
+/* NEWSLETTER */
+
+.newsletter-box{
+  background:
+  linear-gradient(
+  180deg,
+  rgba(255,255,255,0.03),
+  rgba(255,255,255,0.01)
+  );
+
+  border:1px solid var(--border);
+
+  backdrop-filter:blur(20px);
+}
+
+.newsletter-box h2{
+  font-size:3rem;
+}
+
+.newsletter-box p{
+  color:#9fb0bc;
+}
+
+.newsletter-form input{
+  background:#0d1425;
+  border:1px solid rgba(99,245,210,0.08);
+}
+
+.newsletter-form input:focus{
+  outline:none;
+  border-color:var(--primary);
+}
+
+/* FOOTER */
+
+footer{
+  background:#04060f;
+  border-top:1px solid rgba(99,245,210,0.08);
+}
+
+.footer-col h4{
+  color:var(--primary);
+}
+
+.footer-col a{
+  color:#94a3b8;
+}
+
+.footer-col a:hover{
+  color:white;
+}
+
+/* MODAL */
+
+.modal-content{
+  background:#09101d;
+  border:1px solid rgba(99,245,210,0.15);
+}
+
+.modal-gallery{
+  background:#0e1728;
+}
+
+.modal-details h2{
+  font-size:3rem;
+}
+
+.size{
+  border:1px solid rgba(99,245,210,0.15);
+}
+
+.size:hover{
+  background:var(--primary);
+  color:#031014;
+  border-color:var(--primary);
+}
+
+/* GLOW EFFECTS */
+
+.product-card::before,
+.community-card::before,
+.newsletter-box::before{
+
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+  120deg,
+  transparent,
+  rgba(99,245,210,0.04),
+  transparent
+  );
+
+  pointer-events:none;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .hero{
+    align-items:center;
+    text-align:center;
   }
 
-  function closeModal(){
-    document.getElementById('productModal').style.display='none';
+  .hero-content{
+    text-align:center;
   }
 
-  // NETWORK BG
-
-  const canvas = document.getElementById("networkCanvas");
-  const ctx = canvas.getContext("2d");
-
-  let nodes = [];
-
-  function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  .hero h1{
+    font-size:4.5rem;
   }
 
-  resize();
+  .promo-content h2{
+    font-size:2.5rem;
+  }
+}
 
-  window.addEventListener("resize", resize);
+@media(max-width:600px){
 
-  class Node{
-    constructor(){
-      this.x = Math.random()*canvas.width;
-      this.y = Math.random()*canvas.height;
-      this.vx = (Math.random()-0.5)*0.4;
-      this.vy = (Math.random()-0.5)*0.4;
-    }
-
-    move(){
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
-      if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
-    }
-
-    draw(){
-      ctx.fillStyle = "#b266ff";
-
-      ctx.beginPath();
-      ctx.arc(this.x,this.y,2,0,Math.PI*2);
-      ctx.fill();
-    }
+  .hero h1{
+    font-size:3.2rem;
   }
 
-  function init(){
-    nodes = [];
-
-    for(let i=0;i<80;i++){
-      nodes.push(new Node());
-    }
+  .section-title h2{
+    font-size:2.2rem;
   }
 
-  init();
-
-  function drawLines(){
-
-    for(let i=0;i<nodes.length;i++){
-
-      for(let j=i+1;j<nodes.length;j++){
-
-        let dx = nodes[i].x - nodes[j].x;
-        let dy = nodes[i].y - nodes[j].y;
-
-        let dist = Math.sqrt(dx*dx + dy*dy);
-
-        if(dist < 120){
-
-          ctx.strokeStyle =
-          "rgba(178,102,255,"+(1-dist/120)+")";
-
-          ctx.lineWidth = 0.5;
-
-          ctx.beginPath();
-
-          ctx.moveTo(nodes[i].x,nodes[i].y);
-
-          ctx.lineTo(nodes[j].x,nodes[j].y);
-
-          ctx.stroke();
-        }
-      }
-    }
+  .newsletter-box h2{
+    font-size:2rem;
   }
-
-  function animate(){
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    nodes.forEach(n=>{
-      n.move();
-      n.draw();
-    });
-
-    drawLines();
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-</script>
-
-</body>
-</html>
+}
