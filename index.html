@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Shopify Product Grid</title>
+<title>Shopify Storefront</title>
 
 <style>
 body{
@@ -67,22 +67,40 @@ pre{
   border-radius:10px;
   overflow:auto;
   color:#9ca3af;
+  font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Shopify Products</h1>
+<h1>My Shopify Store</h1>
 
 <div class="product-grid" id="productGrid"></div>
 
-<pre id="debug">Loading...</pre>
+<pre id="debug">Loading Shopify data...</pre>
 
 <script>
 
+/* ==============================
+SHOPIFY CONFIG
+============================== */
+
 const domain = "k3xcdb-cx.myshopify.com";
-const storefrontAccessToken = "PASTE_YOUR_TOKEN_HERE";
+
+/* 🔴 PASTE YOUR STOREFRONT TOKEN HERE */
+const storefrontAccessToken = "PASTE_YOUR_STOREFRONT_TOKEN_HERE";
+
+/* ==============================
+DEBUG CHECK
+============================== */
+
+console.log("Shopify endpoint:");
+console.log(`https://${domain}/api/2024-01/graphql.json`);
+
+/* ==============================
+FETCH PRODUCTS
+============================== */
 
 fetch(`https://${domain}/api/2024-01/graphql.json`, {
   method: "POST",
@@ -127,7 +145,7 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
 .then(res => res.json())
 .then(data => {
 
-  console.log(data);
+  console.log("Response:", data);
 
   document.getElementById("debug").textContent =
     JSON.stringify(data, null, 2);
@@ -135,12 +153,12 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
   const products = data?.data?.products?.edges || [];
   const grid = document.getElementById("productGrid");
 
-  if(products.length === 0){
+  if (!products.length) {
     grid.innerHTML = "<h2>No products found</h2>";
     return;
   }
 
-  products.forEach(({node}) => {
+  products.forEach(({ node }) => {
 
     const image =
       node.images.edges[0]?.node.url ||
@@ -175,12 +193,20 @@ fetch(`https://${domain}/api/2024-01/graphql.json`, {
 
 })
 .catch(err => {
+  console.error(err);
   document.getElementById("debug").textContent = err.toString();
 });
 
+/* ==============================
+CHECKOUT
+============================== */
+
 function buyNow(variantId){
+  if (!variantId) return;
+
   const realId = variantId.split("/").pop();
-  window.location.href = `https://${domain}/cart/${realId}:1`;
+  window.location.href =
+    `https://${domain}/cart/${realId}:1`;
 }
 
 </script>
